@@ -2,11 +2,11 @@
 
 // config for DevRajThapa/LaravelTerraDraw
 return [
- /*
+    /*
      * Which draw modes are enabled by default.
      * Options: 'polygon', 'point', 'linestring', 'circle'
      */
-    'modes' => ['polygon', 'point', 'linestring','freehand','circle'],
+    'modes' => ['polygon', 'point', 'linestring', 'freehand', 'circle'],
 
     /*
      * Default map style URL used when a MapLibre style isn't

@@ -2,9 +2,9 @@
 
 namespace DevRajThapa\LaravelTerraDraw;
 
+use DevRajThapa\LaravelTerraDraw\Commands\LaravelTerraDrawCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use DevRajThapa\LaravelTerraDraw\Commands\LaravelTerraDrawCommand;
 
 class LaravelTerraDrawServiceProvider extends PackageServiceProvider
 {
@@ -18,8 +18,8 @@ class LaravelTerraDrawServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-terra-draw')
             ->hasConfigFile('terra-draw');
-           // ->hasViews()
-           // ->hasCommand(LaravelTerraDrawCommand::class);
+        // ->hasViews()
+        // ->hasCommand(LaravelTerraDrawCommand::class);
     }
 
     public function register(): void
@@ -30,5 +30,4 @@ class LaravelTerraDrawServiceProvider extends PackageServiceProvider
             return new TerraDraw(config('terra-draw', []));
         });
     }
-
 }

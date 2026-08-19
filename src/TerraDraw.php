@@ -1,16 +1,16 @@
-<?php 
+<?php
 
 namespace DevRajThapa\LaravelTerraDraw;
 
 class TerraDraw
 {
-
     protected array $enabledModes;
+
     protected string $mapStyle;
 
     public function __construct(array $config = [])
     {
-        $this->enabledModes = $config['modes'] ?? ['polygon', 'point', 'linestring','freehand','circle'];
+        $this->enabledModes = $config['modes'] ?? ['polygon', 'point', 'linestring', 'freehand', 'circle'];
         $this->mapStyle = $config['map_style'] ?? 'https://demotiles.maplibre.org/style.json';
     }
 
@@ -40,6 +40,4 @@ class TerraDraw
             default => false,
         };
     }
-
 }
-

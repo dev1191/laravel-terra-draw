@@ -2,9 +2,9 @@
 
 namespace DevRajThapa\LaravelTerraDraw\Tests;
 
+use DevRajThapa\LaravelTerraDraw\LaravelTerraDrawServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use DevRajThapa\LaravelTerraDraw\LaravelTerraDrawServiceProvider;
 
 class TestCase extends Orchestra
 {
