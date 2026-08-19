@@ -1,0 +1,28 @@
+{
+  "name": "laravel-terra-draw",
+  "version": "1.0.0",
+  "description": "[![Latest Version on Packagist](https://img.shields.io/packagist/v/dev1191/laravel-terra-draw.svg?style=flat-square)](https://packagist.org/packages/dev1191/laravel-terra-draw)\r [![GitHub Tests Action Status](https://github.com/spatie/package-laravel-terra-draw-laravel/actions/workflows/run-tests.yml/badge.svg)](https://github.com/dev1191/laravel-terra-draw/actions?query=workflow%3Arun-tests+branch%3Amain)\r [![GitHub Code Style Action Status](https://github.com/spatie/package-laravel-terra-draw-laravel/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/dev1191/laravel-terra-draw/actions?query=workflow%3A\"Fix+PHP+code+style+issues\"+branch%3Amain)\r [![Total Downloads](https://img.shields.io/packagist/dt/dev1191/laravel-terra-draw.svg?style=flat-square)](https://packagist.org/packages/dev1191/laravel-terra-draw)",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev1191/laravel-terra-draw.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev1191/laravel-terra-draw/issues"
+  },
+  "homepage": "https://github.com/dev1191/laravel-terra-draw#readme",
+  "devDependencies": {
+    "maplibre-gl": "^6.4.1",
+    "terra-draw": "^1.32.3",
+    "terra-draw-maplibre-gl-adapter": "^1.4.1"
+  }
+}

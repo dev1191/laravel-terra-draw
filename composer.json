@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "dev1191/laravel-terra-draw",
+    "description": "This is my package laravel-terra-draw",
     "keywords": [
-        ":vendor_name",
+        "DevRajThapa",
         "laravel",
-        ":package_slug"
+        "laravel-terra-draw"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/dev1191/laravel-terra-draw",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Dev Raj Thapa",
+            "email": "devrajthapa1191@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src/",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories/"
+            "DevRajThapa\\LaravelTerraDraw\\": "src/",
+            "DevRajThapa\\LaravelTerraDraw\\Database\\Factories\\": "database/factories/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests/",
+            "DevRajThapa\\LaravelTerraDraw\\Tests\\": "tests/",
             "Workbench\\App\\": "workbench/app/"
         }
     },
@@ -63,10 +63,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "DevRajThapa\\LaravelTerraDraw\\LaravelTerraDrawServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "LaravelTerraDraw": "DevRajThapa\\LaravelTerraDraw\\Facades\\LaravelTerraDraw"
             }
         }
     },

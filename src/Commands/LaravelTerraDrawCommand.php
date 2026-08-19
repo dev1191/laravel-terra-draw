@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace DevRajThapa\LaravelTerraDraw\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelTerraDrawCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-terra-draw';
 
     public $description = 'My command';
 
