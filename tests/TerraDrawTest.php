@@ -19,5 +19,13 @@ it('rejects a point feature when point mode is disabled', function () {
 });
 
 it('has default config values', function () {
-    expect(config('terra-draw.modes'))->toBe(['polygon', 'point', 'linestring', 'freehand', 'circle']);
+    expect(config('terra-draw.modes'))->toBe([
+        'polygon',
+        'rectangle',
+        'circle',
+        'linestring',
+        'freehand',
+        'point',
+        'select',
+    ]);
 });

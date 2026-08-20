@@ -3,16 +3,48 @@
 // config for DevRajThapa/LaravelTerraDraw
 return [
     /*
-     * Which draw modes are enabled by default.
-     * Options: 'polygon', 'point', 'linestring', 'circle'
+     * Default draw modes enabled.
+     * Options: 'polygon', 'rectangle', 'circle', 'linestring', 'freehand', 'point', 'select'
      */
-    'modes' => ['polygon', 'point', 'linestring', 'freehand', 'circle'],
+    'modes' => [
+        'polygon',
+        'rectangle',
+        'circle',
+        'linestring',
+        'freehand',
+        'point',
+        'select',
+    ],
 
     /*
-     * Default map style URL used when a MapLibre style isn't
-     * explicitly passed to the component.
+     * Default initial draw mode activated on load.
+     */
+    'initial_mode' => 'polygon',
+
+    /*
+     * Default map style URL (MapLibre style JSON).
      */
     'map_style' => 'https://demotiles.maplibre.org/style.json',
+
+    /*
+     * Default center coordinates [longitude, latitude].
+     */
+    'center' => [0, 0],
+
+    /*
+     * Default zoom level.
+     */
+    'zoom' => 2,
+
+    /*
+     * Default map container height.
+     */
+    'height' => '450px',
+
+    /*
+     * Show toolbar controls by default.
+     */
+    'toolbar' => true,
 
     /*
      * Default styling for drawn features (stroke color, fill, etc.)
