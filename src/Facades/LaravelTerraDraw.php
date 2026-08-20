@@ -2,6 +2,7 @@
 
 namespace DevRajThapa\LaravelTerraDraw\Facades;
 
+use DevRajThapa\LaravelTerraDraw\TerraDraw;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -15,12 +16,12 @@ use Illuminate\Support\Facades\Facade;
  * @method static ?array clean(string|array $geojson)
  * @method static bool isEmpty(string|array $geojson)
  *
- * @see \DevRajThapa\LaravelTerraDraw\TerraDraw
+ * @see TerraDraw
  */
 class LaravelTerraDraw extends Facade
 {
     protected static function getFacadeAccessor(): string
     {
-        return \DevRajThapa\LaravelTerraDraw\TerraDraw::class;
+        return TerraDraw::class;
     }
 }

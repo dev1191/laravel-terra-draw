@@ -21,7 +21,7 @@ it('casts a GeoJSON json string to array when accessing attribute', function () 
         'coordinates' => [85.32, 27.71],
     ]);
 
-    $model = new TestLocationModel();
+    $model = new TestLocationModel;
     $model->setRawAttributes(['geometry' => $rawGeoJson]);
 
     expect($model->geometry)->toBeArray()
@@ -30,7 +30,7 @@ it('casts a GeoJSON json string to array when accessing attribute', function () 
 });
 
 it('casts an array to json string when mutating attribute', function () {
-    $model = new TestLocationModel();
+    $model = new TestLocationModel;
     $model->geometry = [
         'type' => 'Point',
         'coordinates' => [85.32, 27.71],
@@ -46,7 +46,7 @@ it('casts an array to json string when mutating attribute', function () {
 });
 
 it('handles null values correctly in AsGeoJson cast', function () {
-    $model = new TestLocationModel();
+    $model = new TestLocationModel;
     $model->geometry = null;
 
     expect($model->geometry)->toBeNull()

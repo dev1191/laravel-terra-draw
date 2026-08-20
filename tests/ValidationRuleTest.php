@@ -56,7 +56,7 @@ $invalidCoords = json_encode([
 it('passes validation for a valid GeoJSON FeatureCollection', function () use ($validPolygon) {
     $validator = Validator::make(
         ['boundary' => $validPolygon],
-        ['boundary' => ['required', new ValidGeoJson()]]
+        ['boundary' => ['required', new ValidGeoJson]]
     );
 
     expect($validator->passes())->toBeTrue();
@@ -65,7 +65,7 @@ it('passes validation for a valid GeoJSON FeatureCollection', function () use ($
 it('fails validation for invalid JSON string', function () {
     $validator = Validator::make(
         ['boundary' => '{ invalid json string ...'],
-        ['boundary' => ['required', new ValidGeoJson()]]
+        ['boundary' => ['required', new ValidGeoJson]]
     );
 
     expect($validator->fails())->toBeTrue();
@@ -74,7 +74,7 @@ it('fails validation for invalid JSON string', function () {
 it('fails validation when coordinates exceed valid latitude/longitude bounds', function () use ($invalidCoords) {
     $validator = Validator::make(
         ['boundary' => $invalidCoords],
-        ['boundary' => ['required', new ValidGeoJson()]]
+        ['boundary' => ['required', new ValidGeoJson]]
     );
 
     expect($validator->fails())->toBeTrue()

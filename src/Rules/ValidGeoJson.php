@@ -4,12 +4,16 @@ namespace DevRajThapa\LaravelTerraDraw\Rules;
 
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Translation\PotentiallyTranslatedString;
 
 class ValidGeoJson implements ValidationRule
 {
     protected ?array $allowedModes = null;
+
     protected ?int $minFeatures = null;
+
     protected ?int $maxFeatures = null;
+
     protected bool $allowEmpty = false;
 
     public function __construct(array $allowedModes = [])
@@ -76,7 +80,7 @@ class ValidGeoJson implements ValidationRule
     /**
      * Run the validation rule.
      *
-     * @param  \Closure(string, ?string=): \Illuminate\Translation\PotentiallyTranslatedString  $fail
+     * @param  Closure(string, ?string=): PotentiallyTranslatedString  $fail
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {

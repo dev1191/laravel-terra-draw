@@ -5,6 +5,7 @@ namespace DevRajThapa\LaravelTerraDraw;
 class TerraDraw
 {
     protected array $enabledModes;
+
     protected string $mapStyle;
 
     public function __construct(array $config = [])
