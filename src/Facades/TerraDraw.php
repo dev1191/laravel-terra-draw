@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Facade;
  *
  * @see \DevRajThapa\LaravelTerraDraw\TerraDraw
  */
-class LaravelTerraDraw extends Facade
+class TerraDraw extends Facade
 {
     protected static function getFacadeAccessor(): string
     {

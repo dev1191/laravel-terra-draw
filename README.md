@@ -5,9 +5,9 @@
 [![GitHub Code Style Action Status](https://github.com/dev1191/laravel-terra-draw/actions/workflows/fix-php-code-style-issues.yml/badge.svg)](https://github.com/dev1191/laravel-terra-draw/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/dev1191/laravel-terra-draw.svg?style=flat-square)](https://packagist.org/packages/dev1191/laravel-terra-draw)
 
-Seamless geospatial drawing and GeoJSON form integration for Laravel powered by **[Terra Draw](https://github.com/JamesLMilner/terra-draw)** and **[MapLibre GL](https://maplibre.org/)**.
+Seamless geospatial drawing, GeoJSON form integration, validation, and Eloquent model casting for Laravel powered by **[Terra Draw](https://github.com/JamesLMilner/terra-draw)** and **[MapLibre GL](https://maplibre.org/)**.
 
-Easily embed interactive vector maps into Blade templates, forms, and admin panels with automatic GeoJSON data synchronization.
+Easily embed interactive vector maps into Blade templates, forms, and admin panels with automatic GeoJSON data synchronization and server-side validation.
 
 ---
 
@@ -16,6 +16,8 @@ Easily embed interactive vector maps into Blade templates, forms, and admin pane
 - 🗺️ **Easy Blade Component**: Use `<x-laravel-terra-draw::terra-draw />` anywhere in your views.
 - ✍️ **Comprehensive Drawing Modes**: Support for Polygon, Rectangle, Circle, LineString, Freehand, Point, and Select / Edit.
 - 🔄 **Automatic Form Sync**: Syncs drawn GeoJSON features directly into a hidden input for seamless Laravel form submission and Livewire binding.
+- 🛡️ **Server-Side Validation Rule**: Powerful `ValidGeoJson` rule with coordinate checking and fluent geometry restrictions (`onlyPolygons()`, `onlyPoints()`, `minFeatures()`, etc.).
+- 📦 **Eloquent Model Cast**: Built-in `AsGeoJson` cast for effortless database array serialization.
 - 🎨 **Built-in Toolbar**: Sleek, customizable drawing controls with active mode indicators and clear canvas buttons.
 - ⚡ **Zero-Config Directives**: Load assets in seconds using `@terraDrawStyles` and `@terraDrawScripts`.
 - ⚙️ **Fully Configurable**: Customizable initial coordinates, zoom levels, MapLibre tile styles, and mode permissions.
@@ -46,7 +48,7 @@ php artisan vendor:publish --tag="laravel-terra-draw-views"
 
 ## Quick Start
 
-Add the component to your Blade view:
+### 1. Embed Map in Blade View
 
 ```blade
 <!DOCTYPE html>
@@ -77,24 +79,69 @@ Add the component to your Blade view:
 </html>
 ```
 
-### Accessing Drawn Data in Controller
+### 2. Validate in Controller (`ValidGeoJson`)
 
-When the form is submitted, the GeoJSON payload is available under your input's `name`:
+Use the `ValidGeoJson` rule to validate the incoming GeoJSON payload and enforce geometry constraints:
 
 ```php
+use DevRajThapa\LaravelTerraDraw\Rules\ValidGeoJson;
+use Illuminate\Http\Request;
+
 public function store(Request $request)
 {
     $request->validate([
-        'boundary' => ['required', 'string'],
+        // Enforce valid GeoJSON structure and coordinates
+        'boundary' => ['required', new ValidGeoJson()],
+
+        // Or use fluent geometry constraints:
+        // 'boundary' => ['required', ValidGeoJson::make()->onlyPolygons()],
+        // 'marker'   => ['required', ValidGeoJson::make()->onlyPoints()],
+        // 'road'     => ['required', ValidGeoJson::make()->onlyLineStrings()],
+        // 'area'     => ['required', ValidGeoJson::make()->allowedModes(['polygon', 'rectangle', 'circle'])],
+        // 'zones'    => ['required', ValidGeoJson::make()->minFeatures(1)->maxFeatures(5)],
     ]);
 
-    $geoJson = json_decode($request->input('boundary'), true);
-
-    // Array of drawn features
-    $features = $geoJson['features'] ?? [];
-
-    // Save to database / spatial column...
+    Location::create([
+        'name' => $request->input('name'),
+        'boundary' => $request->input('boundary'),
+    ]);
 }
+```
+
+### 3. Cast on Eloquent Model (`AsGeoJson`)
+
+Add the `AsGeoJson` cast to your Eloquent model for automatic array casting:
+
+```php
+namespace App\Models;
+
+use DevRajThapa\LaravelTerraDraw\Casts\AsGeoJson;
+use Illuminate\Database\Eloquent\Model;
+
+class Location extends Model
+{
+    protected $fillable = ['name', 'boundary'];
+
+    protected function casts(): array
+    {
+        return [
+            'boundary' => AsGeoJson::class,
+        ];
+    }
+}
+```
+
+Now you can interact with `boundary` as a native PHP array:
+
+```php
+$location = Location::find(1);
+
+// Array of GeoJSON features
+$features = $location->boundary['features'];
+
+// Mutate and save
+$location->boundary = $updatedGeoJsonArray;
+$location->save();
 ```
 
 ---
@@ -105,7 +152,7 @@ public function store(Request $request)
 | :--- | :--- | :--- | :--- |
 | `name` | `string` | `'geometry'` | Name of the hidden input field submitted with the form. |
 | `id` | `string` | Auto-generated | Unique identifier for the map container and input. |
-| `value` | `string\|array` | `null` | Initial GeoJSON payload to render on load (e.g. existing model data). |
+| `value` | `string\|array` | `null` | Initial GeoJSON payload to render on load (e.g. `$location->boundary`). |
 | `center` | `array` | `[0, 0]` | Center coordinates `[longitude, latitude]`. |
 | `zoom` | `int\|float` | `2` | Initial map zoom level. |
 | `height` | `string` | `'450px'` | Height of the map canvas (e.g. `'500px'`, `'70vh'`). |
@@ -119,15 +166,42 @@ public function store(Request $request)
 
 ## Pre-loading Existing GeoJSON
 
-Pass existing GeoJSON data (FeatureCollection, Feature, or JSON string) into the `:value` prop:
+Pass existing GeoJSON data into the `:value` prop:
 
 ```blade
 <x-laravel-terra-draw::terra-draw 
-    name="area" 
-    :value="$polygonModel->geojson" 
+    name="boundary" 
+    :value="$location->boundary" 
     :center="[85.3240, 27.7172]" 
     :zoom="13" 
 />
+```
+
+---
+
+## TerraDraw Facade & Helpers
+
+The `TerraDraw` Facade provides convenient server-side geospatial utilities:
+
+```php
+use DevRajThapa\LaravelTerraDraw\Facades\TerraDraw;
+
+// Count total features
+$count = TerraDraw::getFeatureCount($geojson);
+
+// Get unique geometry types (e.g. ['Polygon', 'Point'])
+$types = TerraDraw::getGeometryTypes($geojson);
+
+// Extract raw coordinates array
+$coordinates = TerraDraw::extractCoordinates($geojson);
+
+// Check if empty
+if (TerraDraw::isEmpty($geojson)) {
+    // ...
+}
+
+// Validate against allowed modes
+$isValid = TerraDraw::validate($geojson, ['polygon', 'rectangle']);
 ```
 
 ---

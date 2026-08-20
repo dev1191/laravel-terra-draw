@@ -2,4 +2,9 @@
 
 namespace DevRajThapa\LaravelTerraDraw;
 
-class LaravelTerraDraw {}
+/**
+ * Class LaravelTerraDraw (Alias of TerraDraw for backwards compatibility)
+ */
+class LaravelTerraDraw extends TerraDraw
+{
+}
