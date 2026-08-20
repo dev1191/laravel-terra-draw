@@ -1,10 +1,14 @@
 {
     "name": "dev1191/laravel-terra-draw",
-    "description": "This is my package laravel-terra-draw",
+    "description": "Interactive geospatial map drawing and GeoJSON form integration for Laravel using Terra Draw and MapLibre GL",
     "keywords": [
         "DevRajThapa",
         "laravel",
-        "laravel-terra-draw"
+        "laravel-terra-draw",
+        "terra-draw",
+        "maplibre",
+        "geojson",
+        "maps"
     ],
     "homepage": "https://github.com/dev1191/laravel-terra-draw",
     "license": "MIT",
@@ -66,6 +70,7 @@
                 "DevRajThapa\\LaravelTerraDraw\\LaravelTerraDrawServiceProvider"
             ],
             "aliases": {
+                "TerraDraw": "DevRajThapa\\LaravelTerraDraw\\Facades\\TerraDraw",
                 "LaravelTerraDraw": "DevRajThapa\\LaravelTerraDraw\\Facades\\LaravelTerraDraw"
             }
         }
